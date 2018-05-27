@@ -1,35 +1,73 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{lib/skill}[2016/04/26 Star Wars RPG Symbols SkillS]
 
-\RequirePackage{tikz}
-\usetikzlibrary{positioning}
+\RequirePackage{ifthen}
+\usetikzlibrary{positioning, shapes, arrows}
 \RequirePackage{scalerel}
-\RequirePackage{background}
+%\RequirePackage{background}
+\usepackage{pgfkeys}
+
+%Remove Numbering
+\setcounter{secnumdepth}{0}
 
 \newlength{\skillheight}
 \settoheight{\skillheight}{A}
 
-\definecolor{activetalent}{RGB}{82,34,127}
-\definecolor{passivetalent}{RGB}{114,205,220}
-
-\newcommand{\talent[3]}{\noindent
-\begin{tikzpicture}[samples=200]
-  \newcommand\length{15em}
-  \newcommand\width{15em}
-  \newcommand\marge{0.2em}
-  \newcommand\title{2em}
-
-  \coordinate (a) at (0em,0em);
-  \coordinate (b) at (\length,\width);
-  \coordinate[below left = \marge and \marge of b] (c) {};
-  \coordinate[below left = \title and (\width - (\marge * 2) ) of c] (d) {};
-
-  \draw [fill=white, ultra thick] (a) rectangle (b);
-  \draw [fill=\ifnum#1>1 blue\else red\fi] (c) rectangle (d);
-
-  \node[above right] at (d) {\color{white}\uppercase{#2} };
-  \node[below right, text width=\length] at (d) {\color{black}\uppercase{#3} };
-
-\end{tikzpicture}
+% Set up the keys.  Only the ones directly under /myparbox
+% can be accepted as options to the \myparbox macro.
+\pgfkeys{
+    /talent/.is family, /talent,
+    % Here are the options that a user can pass
+    default/.style = {
+        name = Unnamed,
+        width = 10em,
+        height = 10em,
+        marge = 0.2em,
+        titleHeight = 1.6em,
+        tier = 1,
+        active = false,
+        ranked = false,
+    },
+    name/.estore in = \talentName,
+    width/.estore in = \talentWidth,
+    height/.estore in = \talentHeight,
+    marge/.estore in = \talentMarge,
+    titleHeight/.estore in = \talentTitleHeight,
+    active/.estore in = \talentActive,
+    ranked/.estore in = \talentRanked,
+    tier/.estore in = \talentTier,
 }
 
+\newcommand\TalentBox[2][]{
+    \pgfkeys{/talent, default, #1}
+    %
+    \newcommand\tier{ \directlua{ a = \talentTier * 5 tex.print(a) } }
+    %
+    \tikz {
+        %
+        \coordinate (a) at (0em,0em);
+        \coordinate (b) at (\talentWidth,\talentHeight);
+        \coordinate[below left = \talentMarge and \talentMarge of b] (c) {};
+        \coordinate[below left = \talentTitleHeight and (\talentWidth - (\talentMarge * 2) ) of c] (d) {};
+        %%
+        \draw [fill=white, ultra thick] (a) rectangle (b);
+        \ifthenelse{ \equal{\talentActive}{true} }{
+            \draw [fill=activetalent] (c) rectangle (d);
+        }{
+            \draw [fill=passivetalent] (c) rectangle (d);
+        }
+        %
+        \node[above right] at (d) {\color{white}\large \uppercase{\talentName} };
+        \node[below right, text width=\talentWidth-(2*\talentMarge)] at (d) {\color{black} #2};
+        \ifthenelse{ \equal{\talentTier}{0} }{
+        }{
+            \draw [fill=black, ultra thick] (\talentWidth,0) rectangle (\talentWidth-1.6em,0+1.6em);
+            \node[above left] at ([xshift=5pt]\talentWidth,0) {\color{white}\large \uppercase{\tier} };
+        }
+        %
+        \ifthenelse{ \equal{\talentRanked}{true} }{
+            \draw [fill=black, ultra thick] (0,0) rectangle (0+1.6em,0+1.6em);
+            \node[above right] at (0,0) {\color{white}\large \uppercase{R} };
+        }
+    }
+}

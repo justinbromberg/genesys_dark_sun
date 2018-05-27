@@ -1,0 +1,26 @@
+\documentclass[a4paper, openany]{report}
+\usepackage[background]{ds}
+\usepackage{incgraph,tikz}
+\usepackage[12pt]{moresize}
+
+%\title{Test PDF for Dark Sun Conversion}
+%\date{}
+\background
+
+\begin{document}
+
+\currentpdfbookmark{Title Page}{titlepage}
+\incgraph[ overlay={\node[white, below = of page.north] {\HUGE Dark Sun for the Genesys RPG};} ]{front.jpg}
+
+\input{chapters/intro}
+\input{chapters/races}
+\input{chapters/specialisations}
+\input{chapters/skills}
+\input{chapters/talents}
+\input{chapters/equipment}
+\input{chapters/magic}
+\input{chapters/adversaries}
+
+\input{chapters/test}
+
+\end{document}

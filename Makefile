@@ -1,12 +1,14 @@
 NAME=dark_sun_rpg.pdf
 
-MAIN_FILE=dark_sun_rpg.tex
-FILES=$(MAIN_FILE) lib/dice.sty lib/skill.sty
+DOCUMENTS=docs/dark_sun_rpg.tex
+FILES=$(DOCUMENTS) lib/characters.sty lib/dice.sty lib/sections.sty lib/skill.sty lib/tables.sty
 
 all: $(NAME)
 show: clean $(NAME)
 	xdg-open $(NAME)
 $(NAME): $(FILES)
-	lualatex *.tex
+	lualatex $(DOCUMENTS)
 clean: 
-	rm -f *.aux  *.dvi  *.log  *.pdf
+	rm -f  *.dvi  *.log  *.pdf *.toc
+distclean: 
+	rm -f  *.dvi  *.log  *.pdf *.toc

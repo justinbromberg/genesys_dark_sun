@@ -1,0 +1,23 @@
+\chapter{Specialisations}
+
+\begin{tikzpicture}
+    \draw ( 0,  3) node[anchor=north east](prime){\TalentBox[width=50em,height=5em, tier=0, name=Awesome Starting Talent]{This is a very good talent, because it is free!}};
+    \draw ([xshift=-40em] 0,  0) node[anchor=north east](aa){\TalentBox[name=Title]{text}}
+          ([xshift=-40em] 5,  0) node[anchor=north east](ab){\TalentBox[name=Title]{text}}
+          ([xshift=-40em]10,  0) node[anchor=north east](ac){\TalentBox[name=Title]{text}}
+          ([xshift=-40em]15,  0) node[anchor=north east](ad){\TalentBox[name=Title]{text}}
+          ([xshift=-40em] 0, -5) node[anchor=north east](ba){\TalentBox[tier=2, name=Title]{text}}
+          ([xshift=-40em] 5, -5) node[anchor=north east](bb){\TalentBox[tier=2, name=Title]{text}}
+          ([xshift=-40em]10, -5) node[anchor=north east](bc){\TalentBox[tier=2, name=Title]{text}}
+          ([xshift=-40em]15, -5) node[anchor=north east](bd){\TalentBox[tier=2, name=Title]{text}}
+          ([xshift=-40em] 0,-10) node[anchor=north east](ca){\TalentBox[tier=3, name=Title]{text}}
+          ([xshift=-40em] 5,-10) node[anchor=north east](cb){\TalentBox[tier=3, name=Title]{text}}
+          ([xshift=-40em]10,-10) node[anchor=north east](cc){\TalentBox[tier=3, name=Title]{text}}
+          ([xshift=-40em]15,-10) node[anchor=north east](cd){\TalentBox[tier=3, name=Title]{text}}
+          ([xshift=-40em] 0,-15) node[anchor=north east](da){\TalentBox[tier=4, name=Title]{text}}
+          ([xshift=-40em] 5,-15) node[anchor=north east](db){\TalentBox[tier=4, name=Title]{text}}
+          ([xshift=-40em]10,-15) node[anchor=north east](dc){\TalentBox[tier=4, name=Title]{text}}
+          ([xshift=-40em]15,-15) node[anchor=north east](dd){\TalentBox[tier=4, name=Title]{text}}
+    ;
+    \draw [gray,-,>=stealth, line width=6pt] (ac) to (bc);
+\end{tikzpicture}

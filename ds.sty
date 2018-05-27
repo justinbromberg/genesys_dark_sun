@@ -1,0 +1,56 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ds}[2018/05/28 Dark Sun Genesys RPG]
+
+\usepackage{titlesec}
+\usepackage[table]{xcolor}
+\usepackage{tabu}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes,arrows,decorations.markings}
+\usepackage[bookmarksopen=false,bookmarks=true]{hyperref}
+\usepackage{bookmark}
+\usepackage{multicol}
+\usepackage{geometry}
+\geometry{ a4paper, total={170mm,257mm}, left=10mm, right=10mm, top=1mm, bottom=20mm, }
+%\usepackage[pages=some]{background}
+\usepackage{eso-pic,graphicx,transparent}
+
+\definecolor{race}{RGB}{243, 108, 33}
+\definecolor{creature}{RGB}{243, 108, 33}
+\definecolor{characteristic}{RGB}{0, 102, 255}
+\definecolor{derived}{RGB}{204, 0, 0}
+
+\definecolor{difficulty}{RGB}{82,34,127}
+\definecolor{boost}{RGB}{114,205,220}
+\definecolor{ability}{RGB}{64,174,74}
+\definecolor{proficiency}{RGB}{255,242,0}
+\definecolor{challenge}{RGB}{210,35,42}
+
+\definecolor{title}{RGB}{0, 192, 253}
+\definecolor{talent}{RGB}{243, 108, 33}
+\definecolor{concept}{RGB}{45, 110, 165}
+
+\definecolor{activetalent}{RGB}{204, 0, 0}
+\definecolor{passivetalent}{RGB}{0, 102, 255}
+
+\definecolor{header}{HTML}{F59331}
+\definecolor{row}{HTML}{E2F4FC}
+
+
+\DeclareOption{background}{
+}
+\newcommand{\background}{
+    \AddToShipoutPictureBG{%
+        {\includegraphics[width=\paperwidth,height=\paperheight]{bg} }%
+    %        \transparent{0.1}\textcolor{white}{\rule{\paperwidth}{\paperheight}}
+    }
+}%
+
+\ProcessOptions\relax
+
+\usepackage{lib/dice}
+\usepackage{lib/skill}
+\usepackage{lib/characters}
+\usepackage{lib/sections}
+\usepackage{lib/tables}
+
+\endinput

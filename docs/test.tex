@@ -1,0 +1,207 @@
+\documentclass[a4paper, openany]{report}
+\usepackage{incgraph,tikz}
+\usepackage[12pt]{moresize}
+\usepackage{pgfkeys}
+\usepackage{enumitem}
+\usetikzlibrary{positioning, shapes, arrows}
+
+\usepackage{titlesec}
+\usepackage{tabu}
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes,arrows,decorations.markings}
+\usepackage{bookmark}
+\usepackage{multicol}
+\usepackage{geometry}
+\geometry{ a4paper, total={170mm,257mm}, left=10mm, right=10mm, top=1mm, bottom=20mm, }
+%\usepackage[pages=some]{background}
+\usepackage{eso-pic,graphicx,transparent}
+\usepackage{epigraph}
+
+\definecolor{race}{RGB}{243, 108, 33}
+\definecolor{creature}{RGB}{243, 108, 33}
+\definecolor{characteristic}{RGB}{0, 102, 255}
+\definecolor{derived}{RGB}{204, 0, 0}
+
+%%%%%
+% Characteristics
+%%%%%
+
+\newcommand\charPart[2]{
+    \noindent
+    \begin{tikzpicture}
+    \node[shape=chamfered rectangle, draw, fill=characteristic, text depth=-0.25em, text height=1.25em, inner sep=0pt,outer sep=0pt, minimum height=8mm, minimum width=12mm, thick, chamfered rectangle corners={north west, north east}, font=\tiny \sffamily\color{white}](label){\uppercase{#1}};
+    \node[shape=circle, thick, draw, above=-1em of label, fill=white]{\large\bfseries #2};
+    \end{tikzpicture}
+}
+
+\newcommand\Characteristics[6]{
+    \noindent
+    \hfill
+    \charPart{BRAWN}{#1}~\charPart{AGILITY}{#2}~\charPart{INTELLECT}{#3}~\charPart{CUNNING}{#4}~\charPart{WILLPOWER}{#5}~\charPart{PRESENCE}{#6}%
+    \hfill
+    \null
+}
+
+%%%%%
+% Derived stats
+%%%%%
+
+\newcommand\Derived[2]{
+    \noindent
+    \begin{tikzpicture}
+        \node[chamfered rectangle, chamfered rectangle corners={south west, south east}, draw, thick, inner sep=0mm, minimum height=4mm] (named) {
+            \tikz
+                \node[ label={[rectangle, draw, fill=derived, thick, inner sep=0mm, font=\sffamily\color{white}, minimum height=4mm, minimum width=12mm]above: \tiny \uppercase{#1}}] (inner) {\bfseries\Large #2};
+        };
+        \node[below=-0.2em of named, font=\tiny](labels) {\hspace{.5em}\uppercase{\phantom{melee\qquad ranged}}};
+    \end{tikzpicture}
+}
+
+\newcommand\DerivedSplit[5]{
+    \noindent
+    \begin{tikzpicture}
+        \node[chamfered rectangle, chamfered rectangle corners={south west, south east}, draw, thick, inner sep=0mm, minimum height=4mm] (named) {
+        \tikz
+            \node[label={[rectangle, draw, thick, fill=derived, inner sep=0mm, font=\sffamily\color{white}, minimum height=4mm, minimum width=22mm]above:\tiny \uppercase{#1}}] (inner) {\Large\bfseries #2\qquad#3};
+        };
+        \draw[ultra thick] (inner) -- (named.south);
+        \node[below=-0.2em of named, font=\tiny](labels) {\hspace{.5em}\uppercase{#4 \quad #5}};
+    \end{tikzpicture}
+}
+
+%%%%%
+% Race
+%%%%%
+
+% Set up the keys.  Only the ones directly under /myparbox
+% can be accepted as options to the \myparbox macro.
+\pgfkeys{
+    /race/.is family, /race,
+    % Here are the options that a user can pass
+    default/.style = {
+        name = Unnamed,
+        brawn = 2,
+        agility = 2,
+        intellect = 2,
+        cunning = 2,
+        willpower = 2,
+        presence = 2,
+        wounds = 10 + Brawn,
+        strain = 10 + Willpower,
+        xp = 10 XP,
+    },
+    name/.estore in = \raceName,
+    brawn/.estore in = \raceBrawn,
+    agility/.estore in = \raceAgility,
+    intellect/.estore in = \raceIntellect,
+    cunning/.estore in = \raceCunning,
+    willpower/.estore in = \raceWillpower,
+    presence/.estore in = \racePresence,
+    wounds/.estore in = \raceWounds,
+    strain/.estore in = \raceStrain,
+    xp/.estore in = \raceXP,
+}
+
+\newcommand\Race[9][]{
+    \pgfkeys{/race, default, #1}%
+
+    \vspace{1em}
+    \belowpdfbookmark{\raceName}{race-\raceName}
+    \noindent{\LARGE\sffamily\color{race} \raceName}\\
+
+    \noindent\begin{minipage}[c]{\linewidth} #2
+    \end{minipage}
+    \vspace{.2em}
+
+    \noindent\begin{minipage}[c]{\linewidth}
+    \noindent
+    \hfill
+        \charPart{BRAWN}{\raceBrawn}
+        \hspace{-1.2em}
+        \charPart{AGILITY}{\raceAgility}
+        \hspace{-1.2em}
+        \charPart{INTELLECT}{\raceIntellect}
+        \hspace{-1.2em}
+        \charPart{CUNNING}{\raceCunning}
+        \hspace{-1.2em}
+        \charPart{WILLPOWER}{\raceWillpower}
+        \hspace{-1.2em}
+        \charPart{PRESENCE}{\racePresence}%
+    \hfill
+    \null
+    \end{minipage}
+    \vspace{.2em}
+
+    \begin{itemize}[topsep=0pt, partopsep=0pt]
+        \setlength{\itemsep}{0pt}%
+        \item \textbf{Wound Threshold:} \raceWounds
+        \item \textbf{Strain Threshold:} \raceStrain
+        \item \textbf{Starting Experience:} \raceXP
+        \item \textbf{Special Ability:} #3
+        #4
+        #5
+        #6
+        #7
+        #8
+        #9
+    \end{itemize}
+}
+
+\begin{document}
+
+\chapter{Races}
+\setcounter{unbalance}{25}
+\begin{multicols*}{2}
+
+\Race[name=Dwarf, presence=1]
+{
+\epigraph{\textit{"The worst thing you can say to a dwarf is 'It can’t be done.'
+If he’s already decided to do it, he may never speak to you again. If he hasn’t
+decided to take up the task, he may commit himself to it simply out of spite.
+‘Impossible’ is not a concept most dwarves understand. Anything can be done,
+with enough determination."} }{Sha’len, Nibenese trader}
+
+Dwarves form a good part of the people encountered in the Tablelands. These
+strong and devoted beings live to fulfill their focus, a task they choose
+to devote their lives to. Stubborn and strong‐minded, dwarves make good
+companions, even though their usual focused nature can tend to be bothersome.\\
+
+\textbf{Personality:} Dwarves prefer to occupy themselves with meaningful tasks,
+and often approach these tasks with an intensity rarely seen in other races.
+As such, dwarves make excellent laborers, and take great pride in their
+accomplishments. However, their stubbornness can lead to difficulties.
+Dwarves will sometimes fail to listen to reason, attempting to accomplish what
+are impossible tasks. Dwarves live for their focus. Dwarves that die while
+being unable to complete their focus return from the dead as banshees to
+haunt their unfinished work. A dwarf also rarely divulges his focus to anyone.\\
+}
+{Special Ability with } {\item \textbf{Named Option: } blaat} {} {} {} {} {}
+
+\Race[name=Elves, presence=1]
+{
+\epigraph{\textit{"Honor? The word does not exist in the Elven language."} }
+{Tharak, human guard}
+
+Athasʹ deserts, plains, steppes and badlands are home
+to the elves, a long–limbed race of trading, raiding,
+thieving sprinters. Running is the key to acceptance and
+respect among elves. Elves that are injured and cannot
+run are often left behind to die.\\
+
+\textbf{Personality:} Other races see elves as dishonest and
+lazy; generally a fair assessment. Elves idle around their
+time for days until compelled by need to exert themselves,
+but they can run for days without complaint. No self–
+respecting elf will consent to ride an animal. To do so is
+dishonorable; Elven custom dictates that individuals keep
+up or be left behind. Elves prefer to lead short, happy
+lives rather than long, boring ones. Seeing the future as a
+dark, deadly place, they prefer to live in "the now,"
+enjoying each fleeting moment. They thrive in open
+spaces, and tend to wither in captivity.\\
+}
+{Special Ability with } {\item \textbf{Named Option: } blaat} {} {} {} {} {}
+
+\end{multicols*}
+
+\end{document}

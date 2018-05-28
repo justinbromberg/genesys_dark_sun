@@ -216,12 +216,11 @@
 
     \vspace{1em}
     \belowpdfbookmark{\creatureName}{creature-\creatureName}
-    \noindent{\LARGE\sffamily\color{creature} \creatureName \hspace{.1em} (\creatureType) }\\
+    \noindent{\LARGE\sffamily\color{creature} \creatureName \hspace{.1em} (\creatureType) }
 
-    \noindent\begin{minipage}[c]{\linewidth} #2
-    \end{minipage}
+    #2
+
     \vspace{.2em}
-
     \noindent\begin{minipage}[c]{\linewidth}
         \noindent\begin{minipage}[c]{\linewidth}
         \noindent
@@ -257,18 +256,11 @@
         \hspace*{\fill}
         \null
         \end{minipage}
+
+    \noindent \textbf{Skills:} \creatureSkills\\
+    \noindent \textbf{Talents:} \creatureTalents\\
+    \noindent \textbf{Abilities:} #3\\
+    \noindent \textbf{Equipment:} \creatureEquipment\\
     \end{minipage}
-
-    \noindent
-    \textbf{Skills:} \creatureSkills
-
-    \noindent
-    \textbf{Talents:} \creatureTalents
-
-    \noindent
-    \textbf{Abilities:} #3
-
-    \noindent
-    \textbf{Equipment:} \creatureEquipment
 }
 

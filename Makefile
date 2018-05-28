@@ -1,7 +1,7 @@
 NAME=dark_sun_rpg.pdf
 
 DOCUMENTS=docs/dark_sun_rpg.tex
-FILES=$(DOCUMENTS) lib/characters.sty lib/dice.sty lib/sections.sty lib/skill.sty lib/tables.sty
+FILES=$(DOCUMENTS) ds.sty chapters/* docs/* lib/* races/*
 
 all: $(NAME)
 show: clean $(NAME)

@@ -21,29 +21,11 @@
     % Here are the options that a user can pass
     default/.style = {
         name = Unnamed,
-        brawn = 2,
-        agility = 2,
-        intellect = 2,
-        cunning = 2,
-        willpower = 2,
-        presence = 2,
-        wounds = 10 + Brawn,
-        strain = 10 + Willpower,
-        xp = 10 XP,
     },
     name/.estore in = \raceName,
-    brawn/.estore in = \raceBrawn,
-    agility/.estore in = \raceAgility,
-    intellect/.estore in = \raceIntellect,
-    cunning/.estore in = \raceCunning,
-    willpower/.estore in = \raceWillpower,
-    presence/.estore in = \racePresence,
-    wounds/.estore in = \raceWounds,
-    strain/.estore in = \raceStrain,
-    xp/.estore in = \raceXP,
 }
 
-\newcommand\Race[9][]{
+\newcommand\Race[3][]{
     \pgfkeys{/race, default, #1}%
 
     \vspace{1em}
@@ -56,16 +38,10 @@
 
     \begin{itemize}[topsep=0pt, partopsep=0pt]
         \setlength{\itemsep}{0pt}%
-        \item \textbf{Wound Threshold:} \raceWounds
-        \item \textbf{Strain Threshold:} \raceStrain
-        \item \textbf{Starting Experience:} \raceXP
+        \item \textbf{Wound Threshold:} 
+        \item \textbf{Strain Threshold:} 
+        \item \textbf{Starting Experience:} 
         \item \textbf{Special Ability:} #3
-        #4
-        #5
-        #6
-        #7
-        #8
-        #9
     \end{itemize}
 }
 
@@ -74,7 +50,7 @@
 \chapter{Races}
 \begin{multicols*}{2}
 
-\Race[name=Dwarf, presence=1]
+\Race[name=Dwarf]
 {
 \epigraph{\textit{"The worst thing you can say to a dwarf is 'It can’t be done.'
 If he’s already decided to do it, he may never speak to you again. If he hasn’t
@@ -96,9 +72,9 @@ are impossible tasks. Dwarves live for their focus. Dwarves that die while
 being unable to complete their focus return from the dead as banshees to
 haunt their unfinished work. A dwarf also rarely divulges his focus to anyone.\\
 }
-{Special Ability with } {\item \textbf{Named Option: } blaat} {} {} {} {} {}
+{Special Ability with }
 
-\Race[name=Elves, presence=1]
+\Race[name=Elves]
 {
 \epigraph{\textit{"Honor? The word does not exist in the Elven language."} }
 {Tharak, human guard}
@@ -121,7 +97,7 @@ dark, deadly place, they prefer to live in "the now,"
 enjoying each fleeting moment. They thrive in open
 spaces, and tend to wither in captivity.\\
 }
-{Special Ability with } {\item \textbf{Named Option: } blaat} {} {} {} {} {}
+{Special Ability with }
 
 \end{multicols*}
 

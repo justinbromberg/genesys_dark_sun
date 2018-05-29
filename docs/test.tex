@@ -1,74 +1,14 @@
 \documentclass[a4paper, openany]{report}
-%\usepackage{incgraph,tikz}
-\usepackage{tikz}
 \usepackage[12pt]{moresize}
 \usepackage{pgfkeys}
 \usepackage{enumitem}
-\usetikzlibrary{positioning, shapes, arrows}
 
-\usepackage{titlesec}
-\usepackage{tabu}
-\usepackage{tikz}
-\usetikzlibrary{positioning,shapes,arrows,decorations.markings}
 \usepackage{bookmark}
 \usepackage{multicol}
 \usepackage{geometry}
 \geometry{ a4paper, total={170mm,257mm}, left=10mm, right=10mm, top=1mm, bottom=20mm, }
-%\usepackage[pages=some]{background}
-\usepackage{eso-pic,graphicx,transparent}
 \usepackage{epigraph}
 
-\definecolor{race}{RGB}{243, 108, 33}
-\definecolor{creature}{RGB}{243, 108, 33}
-\definecolor{characteristic}{RGB}{0, 102, 255}
-\definecolor{derived}{RGB}{204, 0, 0}
-
-%%%%%
-% Characteristics
-%%%%%
-
-\newcommand\charPart[2]{
-    \noindent
-    \begin{tikzpicture}
-    \node[shape=chamfered rectangle, draw, fill=characteristic, text depth=-0.25em, text height=1.25em, inner sep=0pt,outer sep=0pt, minimum height=8mm, minimum width=12mm, thick, chamfered rectangle corners={north west, north east}, font=\tiny \sffamily\color{white}](label){\uppercase{#1}};
-    \node[shape=circle, thick, draw, above=-1em of label, fill=white]{\large\bfseries #2};
-    \end{tikzpicture}
-}
-
-\newcommand\Characteristics[6]{
-    \noindent
-    \hfill
-    \charPart{BRAWN}{#1}~\charPart{AGILITY}{#2}~\charPart{INTELLECT}{#3}~\charPart{CUNNING}{#4}~\charPart{WILLPOWER}{#5}~\charPart{PRESENCE}{#6}%
-    \hfill
-    \null
-}
-
-%%%%%
-% Derived stats
-%%%%%
-
-\newcommand\Derived[2]{
-    \noindent
-    \begin{tikzpicture}
-        \node[chamfered rectangle, chamfered rectangle corners={south west, south east}, draw, thick, inner sep=0mm, minimum height=4mm] (named) {
-            \tikz
-                \node[ label={[rectangle, draw, fill=derived, thick, inner sep=0mm, font=\sffamily\color{white}, minimum height=4mm, minimum width=12mm]above: \tiny \uppercase{#1}}] (inner) {\bfseries\Large #2};
-        };
-        \node[below=-0.2em of named, font=\tiny](labels) {\hspace{.5em}\uppercase{\phantom{melee\qquad ranged}}};
-    \end{tikzpicture}
-}
-
-\newcommand\DerivedSplit[5]{
-    \noindent
-    \begin{tikzpicture}
-        \node[chamfered rectangle, chamfered rectangle corners={south west, south east}, draw, thick, inner sep=0mm, minimum height=4mm] (named) {
-        \tikz
-            \node[label={[rectangle, draw, thick, fill=derived, inner sep=0mm, font=\sffamily\color{white}, minimum height=4mm, minimum width=22mm]above:\tiny \uppercase{#1}}] (inner) {\Large\bfseries #2\qquad#3};
-        };
-        \draw[ultra thick] (inner) -- (named.south);
-        \node[below=-0.2em of named, font=\tiny](labels) {\hspace{.5em}\uppercase{#4 \quad #5}};
-    \end{tikzpicture}
-}
 
 %%%%%
 % Race
@@ -108,28 +48,9 @@
 
     \vspace{1em}
     \belowpdfbookmark{\raceName}{race-\raceName}
-    \noindent{\LARGE\sffamily\color{race} \raceName}\\
+    \noindent{\LARGE\sffamily \raceName}\\
 
     \noindent\begin{minipage}[c]{\linewidth} #2
-    \end{minipage}
-    \vspace{.2em}
-
-    \noindent\begin{minipage}[c]{\linewidth}
-    \noindent
-    \hfill
-        \charPart{BRAWN}{\raceBrawn}
-        \hspace{-1.2em}
-        \charPart{AGILITY}{\raceAgility}
-        \hspace{-1.2em}
-        \charPart{INTELLECT}{\raceIntellect}
-        \hspace{-1.2em}
-        \charPart{CUNNING}{\raceCunning}
-        \hspace{-1.2em}
-        \charPart{WILLPOWER}{\raceWillpower}
-        \hspace{-1.2em}
-        \charPart{PRESENCE}{\racePresence}%
-    \hfill
-    \null
     \end{minipage}
     \vspace{.2em}
 
